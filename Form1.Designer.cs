@@ -387,6 +387,7 @@
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.ImageMapper);
             this.Controls.Add(this.Title);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "AutoTune";
             ((System.ComponentModel.ISupportInitialize)(this.ImageMapper)).EndInit();
