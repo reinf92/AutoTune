@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Title = new System.Windows.Forms.Label();
             this.ImageMapper = new System.Windows.Forms.PictureBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -72,6 +73,8 @@
             // 
             // ImageMapper
             // 
+            this.ImageMapper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ImageMapper.ErrorImage = ((System.Drawing.Image)(resources.GetObject("ImageMapper.ErrorImage")));
             this.ImageMapper.Location = new System.Drawing.Point(16, 51);
             this.ImageMapper.Name = "ImageMapper";
             this.ImageMapper.Size = new System.Drawing.Size(234, 77);
@@ -154,6 +157,7 @@
             this.btn_Start.TabIndex = 9;
             this.btn_Start.Text = "Start";
             this.btn_Start.UseVisualStyleBackColor = true;
+            this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
             // 
             // btn_Stop
             // 
@@ -163,6 +167,7 @@
             this.btn_Stop.TabIndex = 10;
             this.btn_Stop.Text = "Stop";
             this.btn_Stop.UseVisualStyleBackColor = true;
+            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
             // 
             // InventoryHeader
             // 
