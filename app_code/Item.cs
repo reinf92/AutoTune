@@ -11,6 +11,11 @@ namespace AutoTune
         const int MAX_DURABILITE = 100;
         const int COST = 33;
 
+        public static bool IsEmpty(Item item)
+        {
+            return item == null;
+        }
+
         public int Durability { get; set; } = MAX_DURABILITE;
         public int Level { get; set; } = 1;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -10,16 +11,20 @@ using System.Windows.Forms;
 using Tesseract;
 using System.Threading;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace AutoTune
 {
     public partial class Form1 : Form
     {
-        const int MAX_WIDTH = 234;
-        const int MAX_HEIGHT = 77;
-
         const string FAIL = "failed";
         const string SUCCESS = "success";
+
+        Extraction extraction = new Extraction();
+        MouseEvent mouse = new MouseEvent();
+        Hashtable inventory = new Hashtable();
+
+        string text = string.Empty;
 
         public Form1()
         {
@@ -28,50 +33,71 @@ namespace AutoTune
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
+            lb_Item1.Text = "ㅋㅋㅋ";
 
-            Bitmap bmp = loadImage();
+            for (int i = 0; i < 8; i++)
+            {
+                Item item = (Item)inventory[i];
 
-            ImageMapper.Image = bmp;
+                while (item == null)
+                {
+                    inventory.Add(i, new Item());
+                    item = (Item)inventory[i];
 
-            
+                    mouse.BillBoardClick();
+                    mouse.BuyBtnClick();
+                    mouse.BuyItemClick();
+                    mouse.OkBtnClick();
 
-            //var ocr = new TesseractEngine("./tessdata", "eng", EngineMode.TesseractAndCube);
-            //var page = ocr.Process(bmp);
+                    mouse.TuneBtnClick();                   
+                    Debug.WriteLine("아이템 : " + i.ToString() + ", 레벨 : " + item.Level.ToString() + ", 내구도 : " + item.Durability.ToString());                    
 
-            //MessageBox.Show(page.GetText());
+                    while (item.Level != 7 && item.Durability != 1)
+                    {
+                        mouse.ItemClick(MouseEvent.itemsPoint[i]);
+                        mouse.TuningClick();
 
-            //if (page.GetText().Contains(SUCCESS))
-            //{
-            //    MessageBox.Show("good!!");
-            //}else if(page.GetText().Contains(FAIL))
-            //{
-            //    MessageBox.Show("no!!!!");
-            //}
+                        text = GetTextAndBind();
 
-            
+                        if (text.Contains(SUCCESS))
+                        {
+                            item.SucceedTune();
+                        }
+                        else if (text.Contains(FAIL))
+                        {
+                            item.DownDurability();
+                        }
+                        
+                        Debug.WriteLine("아이템 : " + i.ToString() + ", 레벨 : " + item.Level.ToString() + ", 내구도 : " + item.Durability.ToString());                        
+                    }
 
+                    if (item.Level != 7 && item.Durability == 1)
+                    {
+                        inventory.Remove(i);
+                        item = null;
+
+                        mouse.BillBoardClick();
+                        mouse.SellBtnClick();
+                        mouse.ItemClick(MouseEvent.itemsPoint[i]);
+                    }
+                }
+            }
         }
 
-        public Bitmap loadImage()
-        {
-            Bitmap bmp = new Bitmap(MAX_WIDTH, MAX_HEIGHT);
-            Graphics g = Graphics.FromImage(bmp);
-            Size size = new Size(MAX_WIDTH, MAX_HEIGHT);
-            g.CopyFromScreen(150, 50, 0, 0, size);
-            g.Dispose();
+        
 
-            return bmp;
+        private string GetTextAndBind()
+        {                         
+            Page page = extraction.Render(ImageMapper);
+            String text = page.GetText();
+
+            return text;
         }
-
+        
+        
         private void btn_Stop_Click(object sender, EventArgs e)
         {
-            Thread.Sleep(3000);
-
-            MouseController mc = new MouseController();
-            mc.BuyItem((uint)Cursor.Position.X, (uint)Cursor.Position.Y);
-
-
-            
+            Application.ExitThread();
         }
     }
 
