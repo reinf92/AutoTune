@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Title = new System.Windows.Forms.Label();
-            this.ImageMapper = new System.Windows.Forms.PictureBox();
+            this.iMapper = new System.Windows.Forms.PictureBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.ItemCountText = new System.Windows.Forms.Label();
             this.ItemsCountSetting = new System.Windows.Forms.NumericUpDown();
@@ -57,7 +57,7 @@
             this.lb_Failure5 = new System.Windows.Forms.Label();
             this.lb_Failure6 = new System.Windows.Forms.Label();
             this.lb_Failure7 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.ImageMapper)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iMapper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ItemsCountSetting)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,15 +71,15 @@
             this.Title.TabIndex = 0;
             this.Title.Text = "AstroN Auto Tune Program";
             // 
-            // ImageMapper
+            // iMapper
             // 
-            this.ImageMapper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ImageMapper.ErrorImage = ((System.Drawing.Image)(resources.GetObject("ImageMapper.ErrorImage")));
-            this.ImageMapper.Location = new System.Drawing.Point(19, 47);
-            this.ImageMapper.Name = "ImageMapper";
-            this.ImageMapper.Size = new System.Drawing.Size(230, 70);
-            this.ImageMapper.TabIndex = 1;
-            this.ImageMapper.TabStop = false;
+            this.iMapper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.iMapper.ErrorImage = ((System.Drawing.Image)(resources.GetObject("iMapper.ErrorImage")));
+            this.iMapper.Location = new System.Drawing.Point(19, 47);
+            this.iMapper.Name = "iMapper";
+            this.iMapper.Size = new System.Drawing.Size(230, 70);
+            this.iMapper.TabIndex = 1;
+            this.iMapper.TabStop = false;
             // 
             // checkBox1
             // 
@@ -385,12 +385,12 @@
             this.Controls.Add(this.ItemsCountSetting);
             this.Controls.Add(this.ItemCountText);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.ImageMapper);
+            this.Controls.Add(this.iMapper);
             this.Controls.Add(this.Title);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "AutoTune";
-            ((System.ComponentModel.ISupportInitialize)(this.ImageMapper)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iMapper)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ItemsCountSetting)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -400,7 +400,7 @@
         #endregion
 
         private System.Windows.Forms.Label Title;
-        private System.Windows.Forms.PictureBox ImageMapper;
+        private System.Windows.Forms.PictureBox iMapper;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label ItemCountText;
         private System.Windows.Forms.NumericUpDown ItemsCountSetting;

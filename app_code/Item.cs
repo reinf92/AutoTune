@@ -1,38 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoTune
 {
     class Item
     {
-        const int MAX_DURABILITE = 100;
-        const int COST = 33;
+        const System.Int32 MAX_DURABILITY = 100;
+        const System.Int32 MIN_DURABILITY = 1;
+        const System.Int32 TUNE_COST = 33;
 
-        public static bool IsEmpty(Item item)
-        {
-            return item == null;
-        }
-
-        public int Durability { get; set; } = MAX_DURABILITE;
         public int Level { get; set; } = 1;
+        public int Durability { get; set; } = MAX_DURABILITY;        
+        public bool Status { get; set; } = true;
 
-        public void DownDurability()
+        public void TuneFailed()
         {
             if (Durability < 34)
             {
                 throw new Exception("This item cannot be tune");
             }
 
-            Durability = Durability - COST;
+            Durability -= TUNE_COST;
+
+            if (Durability == 1)
+            {
+                Status = false;
+            }
         }
 
-        public void SucceedTune()
+        public void TuneSuccess()
         {
-            Durability = MAX_DURABILITE; ;
+            Durability = MAX_DURABILITY; ;
             Level++;
+        }
+
+        public string GetString()
+        {
+            return "Level : " + Level + ", Durability : " + Durability + ", " + "Status : " + Status;
         }
     }
 }

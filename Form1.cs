@@ -1,104 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tesseract;
 using System.Threading;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 namespace AutoTune
 {
     public partial class Form1 : Form
     {
-        const string FAIL = "failed";
-        const string SUCCESS = "success";
+        private System.Int32 BlueStack;
+        private System.Int32 AstroN;
+        private Dictionary<int, Item> list;
+        private Control control;
 
-        Extraction extraction = new Extraction();
-        MouseEvent mouse = new MouseEvent();
-        Hashtable inventory = new Hashtable();
 
         string text = string.Empty;
-
+        
         public Form1()
         {
             InitializeComponent();
+            Init();
+        }
+
+        private void Init()
+        {
+            BlueStack = Win32.FindWindow("HwndWrapper[BlueStacks.exe;;7b0eeda4-756d-432f-b244-1b9e8e286751]", "BlueStacks 1 ");
+            AstroN = Win32.FindWindowEx(BlueStack, 0, null, "BlueStacks Android PluginAndroid_1");
+            list = new Dictionary<int, Item>();
+            control = new Control(AstroN);
         }
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            lb_Item1.Text = "ㅋㅋㅋ";
+            Thread.Sleep(5000);
 
+            Run();
+        }
+
+
+        private void btn_Stop_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Run()
+        {
             for (int i = 0; i < 8; i++)
             {
-                Item item = (Item)inventory[i];
+                Item temp = null;
 
-                while (item == null)
+                while(!list.TryGetValue(i, out temp))
                 {
-                    inventory.Add(i, new Item());
-                    item = (Item)inventory[i];
+                    list[i] = new Item();
 
-                    mouse.BillBoardClick();
-                    mouse.BuyBtnClick();
-                    mouse.BuyItemClick();
-                    mouse.OkBtnClick();
+                    control.Ready();
+                    control.Buy();
+                    control.TuneReady();
 
-                    mouse.TuneBtnClick();                   
-                    Debug.WriteLine("아이템 : " + i.ToString() + ", 레벨 : " + item.Level.ToString() + ", 내구도 : " + item.Durability.ToString());                    
+                    Debug.WriteLine(list[i].GetString());
 
-                    while (item.Level != 7 && item.Durability != 1)
+                    while (list[i].Level < 7 && list[i].Durability > 1)
                     {
-                        mouse.ItemClick(MouseEvent.itemsPoint[i]);
-                        mouse.TuningClick();
+                        control.Tune(i);
 
-                        text = GetTextAndBind();
+                        if (control.ImageRender())
+                        {
+                            list[i].TuneSuccess();                            
+                        }
+                        else
+                        {
+                            list[i].TuneFailed();
+                        }
 
-                        if (text.Contains(SUCCESS))
-                        {
-                            item.SucceedTune();
-                        }
-                        else if (text.Contains(FAIL))
-                        {
-                            item.DownDurability();
-                        }
-                        
-                        Debug.WriteLine("아이템 : " + i.ToString() + ", 레벨 : " + item.Level.ToString() + ", 내구도 : " + item.Durability.ToString());                        
+                        Debug.WriteLine(list[i].GetString());
                     }
 
-                    if (item.Level != 7 && item.Durability == 1)
-                    {
-                        inventory.Remove(i);
-                        item = null;
+                    if (list[i].Durability == 1)
+                    {                        
+                        list.Remove(i);
 
-                        mouse.BillBoardClick();
-                        mouse.SellBtnClick();
-                        mouse.ItemClick(MouseEvent.itemsPoint[i]);
+                        control.Ready();
+                        control.Sell(i);
                     }
                 }
             }
         }
 
-        
 
-        private string GetTextAndBind()
-        {                         
-            Page page = extraction.Render(ImageMapper);
-            String text = page.GetText();
-
-            return text;
-        }
-        
-        
-        private void btn_Stop_Click(object sender, EventArgs e)
-        {
-            Application.ExitThread();
-        }
+       
     }
 
    
