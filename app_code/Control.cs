@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
-using Tesseract;
 using System.Drawing;
+using IronOcr;
+using System.Windows.Forms;
 
 namespace AutoTune
 {
@@ -89,15 +90,16 @@ namespace AutoTune
 
             Win32.SendMessage(SystemCode, Win32.WM_LBUTTONDOWN, 0x00000001, ConvertLParam(TUNING_X, TUNING_Y));
             Win32.SendMessage(SystemCode, Win32.WM_LBUTTONUP, 0x00000001, ConvertLParam(TUNING_X, TUNING_Y));
-            Thread.Sleep(5000);
+            Thread.Sleep(5500);
         }
-        public bool ImageRender()
+        public bool ImageRender(PictureBox box)
         {            
             Bitmap bmp = Win32.PrintWindow();
+            box.Image = bmp;
+            var Ocr = new AutoOcr();
+            var result = Ocr.Read(bmp);                 
 
-            TesseractEngine ocr = new TesseractEngine("./tessdata", "eng", EngineMode.TesseractAndCube);
-            Page page = ocr.Process(bmp);
-            return page.GetText().Contains(IMAGE_EXTRACTION_TEXT_SUCCESS);
+            return result.Text.Contains(IMAGE_EXTRACTION_TEXT_SUCCESS);            
         }
 
         private IntPtr ConvertLParam(int LoWord, int HiWord)

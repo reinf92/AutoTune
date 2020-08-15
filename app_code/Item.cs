@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace AutoTune
 {
@@ -36,6 +37,22 @@ namespace AutoTune
         public string GetString()
         {
             return "Level : " + Level + ", Durability : " + Durability + ", " + "Status : " + Status;
+        }
+
+        public void BindText(Label label)
+        {
+            
+
+            label.Text = Level + " (" + Durability + ")";
+        }
+
+        public void BindFailed(Label label)
+        {
+            string title = label.Text;
+            string basic = title.Substring(0, 5);
+            string number = title.Substring(5, title.Length - 5);
+
+            label.Text = basic + (int.Parse(number) + 1);
         }
     }
 }

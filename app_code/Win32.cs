@@ -60,9 +60,9 @@ namespace AutoTune
 
         public static Bitmap PrintWindow()
         {
-            Bitmap bmp = new Bitmap(230, 70);
+            Bitmap bmp = new Bitmap(230, 80);
             Graphics graphics = Graphics.FromImage(bmp);
-            Size size = new Size(230, 70);
+            Size size = new Size(230, 80);
 
             graphics.CopyFromScreen(3850, 60, 0, 0, size);
             graphics.Dispose();
