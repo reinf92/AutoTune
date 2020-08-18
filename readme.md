@@ -5,8 +5,6 @@
 
 아이템 개조 이후 텍스트보드를 캡쳐하고, Tesseract OCR을 이용해 캡쳐된 이미지내 문자를 추출하여 개조 성공여부를 판단하여 다음 플랜을 결정하게 됩니다. 또한 WIndow Handler를 이용하여 실행된 블루스택 내부에서만 작동되기 때문에 매크로를 켜둔 상태로 다른 행동을 할 수 있습니다.
 
-현재는 해당 Window의 ClassName, WindowName을 직접 소스에 입력해야 구동되게 되어있는데 추후에는 선택할 수 있도록 개발할 예정입니다.
-
 ![AutoTune](https://user-images.githubusercontent.com/67962289/89706395-26f7f300-d9a0-11ea-90b0-bb8a6a8c9bce.png)
 
 
