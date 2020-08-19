@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
-namespace AutoTune
+
+namespace AutoTune_v2
 {
     class Win32
     {
@@ -29,31 +34,31 @@ namespace AutoTune
 
         [DllImport("User32.dll")]
         public static extern Int32 SendMessage(
-            int hWnd,               
-            int Msg,                
-            int wParam,             
+            int hWnd,
+            int Msg,
+            int wParam,
             [MarshalAs(UnmanagedType.LPStr)] string lParam);
 
         [DllImport("User32.dll")]
         public static extern Int32 SendMessage(
-            int hWnd,               
-            int Msg,                
-            int wParam,             
+            int hWnd,
+            int Msg,
+            int wParam,
             IntPtr lParam);
-    
+
         [DllImport("User32.dll")]
-        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+        public static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
         [DllImport("User32.dll")]
         public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
 
         public static Bitmap PrintWindow(int hwnd)
         {
-            RECT rc;
+            Rect rc;
             GetWindowRect(new IntPtr(hwnd), out rc);
             Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
             Graphics gfxBmp = Graphics.FromImage(bmp);
-            gfxBmp.CopyFromScreen(3850, 60, 0, 0, bmp.Size);
-            gfxBmp.Dispose();            
+            gfxBmp.CopyFromScreen(3730, 60, 0, 0, bmp.Size);
+            gfxBmp.Dispose();
 
             return bmp;
         }
@@ -63,11 +68,12 @@ namespace AutoTune
             Bitmap bmp = new Bitmap(230, 80);
             Graphics graphics = Graphics.FromImage(bmp);
             Size size = new Size(230, 80);
-
-            graphics.CopyFromScreen(3850, 60, 0, 0, size);
+            graphics.CopyFromScreen(3730, 60, 0, 0, size);            
             graphics.Dispose();
-            
+
             return bmp;
         }
+
+        
     }
 }

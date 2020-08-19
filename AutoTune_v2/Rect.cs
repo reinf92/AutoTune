@@ -1,20 +1,25 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace AutoTune
+namespace AutoTune_v2
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct RECT
+    public struct Rect
     {
         private int _Left;
         private int _Top;
         private int _Right;
         private int _Bottom;
 
-        public RECT(RECT Rectangle) : this(Rectangle.Left, Rectangle.Top, Rectangle.Right, Rectangle.Bottom)
+        public Rect(Rect Rectangle) : this(Rectangle.Left, Rectangle.Top, Rectangle.Right, Rectangle.Bottom)
         {
         }
-        public RECT(int Left, int Top, int Right, int Bottom)
+        public Rect(int Left, int Top, int Right, int Bottom)
         {
             _Left = Left;
             _Top = Top;
@@ -81,19 +86,19 @@ namespace AutoTune
             }
         }
 
-        public static implicit operator Rectangle(RECT Rectangle)
+        public static implicit operator Rectangle(Rect Rectangle)
         {
             return new Rectangle(Rectangle.Left, Rectangle.Top, Rectangle.Width, Rectangle.Height);
         }
-        public static implicit operator RECT(Rectangle Rectangle)
+        public static implicit operator Rect(Rectangle Rectangle)
         {
-            return new RECT(Rectangle.Left, Rectangle.Top, Rectangle.Right, Rectangle.Bottom);
+            return new Rect(Rectangle.Left, Rectangle.Top, Rectangle.Right, Rectangle.Bottom);
         }
-        public static bool operator ==(RECT Rectangle1, RECT Rectangle2)
+        public static bool operator ==(Rect Rectangle1, Rect Rectangle2)
         {
             return Rectangle1.Equals(Rectangle2);
         }
-        public static bool operator !=(RECT Rectangle1, RECT Rectangle2)
+        public static bool operator !=(Rect Rectangle1, Rect Rectangle2)
         {
             return !Rectangle1.Equals(Rectangle2);
         }
@@ -108,20 +113,20 @@ namespace AutoTune
             return ToString().GetHashCode();
         }
 
-        public bool Equals(RECT Rectangle)
+        public bool Equals(Rect Rectangle)
         {
             return Rectangle.Left == _Left && Rectangle.Top == _Top && Rectangle.Right == _Right && Rectangle.Bottom == _Bottom;
         }
 
         public override bool Equals(object Object)
         {
-            if (Object is RECT)
+            if (Object is Rect)
             {
-                return Equals((RECT)Object);
+                return Equals((Rect)Object);
             }
             else if (Object is Rectangle)
             {
-                return Equals(new RECT((Rectangle)Object));
+                return Equals(new Rect((Rectangle)Object));
             }
 
             return false;

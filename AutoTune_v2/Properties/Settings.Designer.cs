@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AutoTune.Properties
+namespace AutoTune_v2.Properties
 {
 
 

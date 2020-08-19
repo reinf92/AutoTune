@@ -1,7 +1,12 @@
 ﻿using System;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace AutoTune
+namespace AutoTune_v2
 {
     class Item
     {
@@ -10,7 +15,7 @@ namespace AutoTune
         const System.Int32 TUNE_COST = 33;
 
         public int Level { get; set; } = 1;
-        public int Durability { get; set; } = MAX_DURABILITY;        
+        public int Durability { get; set; } = MAX_DURABILITY;
         public bool Status { get; set; } = true;
 
         public void TuneFailed()
@@ -37,22 +42,6 @@ namespace AutoTune
         public string GetString()
         {
             return "Level : " + Level + ", Durability : " + Durability + ", " + "Status : " + Status;
-        }
-
-        public void BindText(Label label)
-        {
-            
-
-            label.Text = Level + " (" + Durability + ")";
-        }
-
-        public void BindFailed(Label label)
-        {
-            string title = label.Text;
-            string basic = title.Substring(0, 5);
-            string number = title.Substring(5, title.Length - 5);
-
-            label.Text = basic + (int.Parse(number) + 1);
         }
     }
 }
