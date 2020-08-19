@@ -5,9 +5,7 @@
 
 아이템 개조 이후 텍스트보드를 캡쳐하고, Tesseract OCR을 이용해 캡쳐된 이미지내 문자를 추출하여 개조 성공여부를 판단하여 다음 플랜을 결정하게 됩니다. 또한 WIndow Handler를 이용하여 실행된 블루스택 내부에서만 작동되기 때문에 매크로를 켜둔 상태로 다른 행동을 할 수 있습니다.
 
-![AutoTune](https://user-images.githubusercontent.com/67962289/90504917-bfeef100-e18c-11ea-8391-9c020babb20b.png)
-
-<iframe width="640" height="360" src="https://youtu.be/6UGx64RDpEE" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+[![Video Label](http://img.youtube.com/vi/6UGx64RDpEE/0.jpg)](https://youtu.be/6UGx64RDpEE)
 
 ## 버전정보
 - Visual Studio 2015
