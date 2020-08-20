@@ -39,6 +39,8 @@ namespace AutoTune_v2
         {
             ItemCount.IsEnabled = false;
             ItemLevel.IsEnabled = false;
+            btn_Start.IsEnabled = false;
+            btn_Stop.IsEnabled = true;
 
             play.Run();        
         }
@@ -47,6 +49,9 @@ namespace AutoTune_v2
         {            
             ItemCount.IsEnabled = true;
             ItemLevel.IsEnabled = true;
+            btn_Start.IsEnabled = true;
+            btn_Stop.IsEnabled = false;
+
             Progress.Content = "Current Progress : Stand by..";
 
             play.Abort();

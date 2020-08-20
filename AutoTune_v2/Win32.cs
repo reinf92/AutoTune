@@ -48,16 +48,53 @@ namespace AutoTune_v2
 
         [DllImport("User32.dll")]
         public static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
-        [DllImport("User32.dll")]
-        public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
+        
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int GetWindowRgn(IntPtr hWnd, IntPtr hRgn);
+
+        [DllImport("gdi32.dll")]
+        public static extern IntPtr CreateRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
+
 
         public static Bitmap PrintWindow(int hwnd)
-        {
-            Rect rc;
-            GetWindowRect(new IntPtr(hwnd), out rc);
-            Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
+        { 
+            Rectangle rc = Rectangle.Empty;
+            Graphics gfxWin = Graphics.FromHwnd(new IntPtr(hwnd));
+            rc = Rectangle.Round(gfxWin.VisibleClipBounds);
+            
+            Bitmap bmp = new Bitmap(
+                603,
+                210,
+                PixelFormat.Format32bppArgb);            
+
             Graphics gfxBmp = Graphics.FromImage(bmp);
-            gfxBmp.CopyFromScreen(3730, 60, 0, 0, bmp.Size);
+            IntPtr hdcBitmap = gfxBmp.GetHdc();
+
+            bool succeeded = PrintWindow(new IntPtr(hwnd), hdcBitmap, 2);
+            gfxBmp.ReleaseHdc(hdcBitmap);
+
+            if (!succeeded)
+            {
+                gfxBmp.FillRectangle(
+                    new SolidBrush(Color.Gray),
+                    new Rectangle(System.Drawing.Point.Empty, bmp.Size));
+            }
+            
+            IntPtr hRgn = CreateRectRgn(0, 0, 0, 0);
+            GetWindowRgn(new IntPtr(hwnd), hRgn);
+            Region region = Region.FromHrgn(hRgn);
+
+            if (!region.IsEmpty(gfxBmp))
+            {
+                gfxBmp.ExcludeClip(region);
+                gfxBmp.Clear(Color.Transparent);
+            }
+
             gfxBmp.Dispose();
 
             return bmp;
@@ -73,7 +110,5 @@ namespace AutoTune_v2
 
             return bmp;
         }
-
-        
     }
 }

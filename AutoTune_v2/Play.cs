@@ -69,7 +69,7 @@ namespace AutoTune_v2
 
             window.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (ThreadStart)delegate ()
             {
-                itemList.Clear();
+                Clear();
 
                 count = int.Parse(window.ItemCount.Text);
                 level = int.Parse(window.ItemLevel.Text);
@@ -97,6 +97,7 @@ namespace AutoTune_v2
                     {
                         UpdateCurrentMessage("Tuning...");
 
+                        cEvent.Board();
                         cEvent.Tune(i);
 
                         bool result = false;
@@ -190,7 +191,7 @@ namespace AutoTune_v2
 
         public bool Enhance()
         {
-            Bitmap bitmap = Win32.PrintWindow();
+            Bitmap bitmap = Win32.PrintWindow(handle);
             string text = ExtractText(bitmap);
             BindImage(bitmap);
 

@@ -51,10 +51,6 @@ namespace AutoTune_v2
             Win32.SendMessage(Handle, Win32.WM_LBUTTONDOWN, 1, ParseLParam(COORD_BOARD));
             Win32.SendMessage(Handle, Win32.WM_LBUTTONUP, 0, ParseLParam(COORD_BOARD));
             Thread.Sleep(300);
-
-            Win32.SendMessage(Handle, Win32.WM_LBUTTONDOWN, 1, ParseLParam(COORD_BOARD));
-            Win32.SendMessage(Handle, Win32.WM_LBUTTONUP, 0, ParseLParam(COORD_BOARD));
-            Thread.Sleep(300);
         }
 
         public void Buy()

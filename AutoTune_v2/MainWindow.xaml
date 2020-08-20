@@ -2,11 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AutoTune_v2"
-        
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                
         mc:Ignorable="d"
-        Title="AutoTune" Height="284.697" Width="470.768" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="AutoTune" Height="284.697" Width="470.768" Loaded="Window_Loaded" Closing="Window_Closing"
+        Icon="gaia.ico">
     <Grid>
         <Button x:Name="btn_Start" Content="Start" HorizontalAlignment="Left" Margin="363,194,0,0" VerticalAlignment="Top" Width="80" Click="Btn_Start_Click" Height="40" FontWeight="Bold" FontSize="14"/>
         <Label Content="AstroN AutoTune Program" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="39" Width="338" FontSize="18" FontWeight="Bold"/>
@@ -27,7 +26,7 @@
         <Label x:Name="Failed_4" Content="v4 Failed : 0" HorizontalAlignment="Left" Margin="363,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.769,-1.346" FontWeight="Bold" Foreground="Red"/>
         <Label x:Name="Failed_5" Content="v5 Failed : 0" HorizontalAlignment="Left" Margin="363,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.769,-1.346" FontWeight="Bold" Foreground="Red"/>
         <Label x:Name="Failed_6" Content="v6 Failed : 0" HorizontalAlignment="Left" Margin="363,153,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.769,-1.346" FontWeight="Bold" Foreground="Red"/>
-        <Button x:Name="btn_Stop" Content="Stop" HorizontalAlignment="Left" Margin="268,194,0,0" VerticalAlignment="Top" Width="80" Click="Btn_Stop_Click" Height="40" FontWeight="Bold" FontSize="14"/>
+        <Button x:Name="btn_Stop" Content="Stop" HorizontalAlignment="Left" Margin="268,194,0,0" VerticalAlignment="Top" Width="80" Click="Btn_Stop_Click" Height="40" FontWeight="Bold" FontSize="14" IsEnabled="False"/>
         <Label Content="Level of items" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Height="30" Width="150"/>
         <TextBox x:Name="ItemLevel" HorizontalAlignment="Left" Height="23" Margin="165,142,0,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="78" RenderTransformOrigin="0.51,1.565" PreviewTextInput="NumberValidationTextBox"/>
         <Label Content="Stop when num of items" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Height="30" Width="150"/>
